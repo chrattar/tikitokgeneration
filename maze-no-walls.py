@@ -3,10 +3,9 @@ import numpy as np
 import random
 import time
 
-# Initialize pygame
 pygame.init()
 
-# Screen dimensions
+#Screen
 width, height = 21, 21
 cell_size = 20
 screen = pygame.display.set_mode((width * cell_size, height * cell_size))
@@ -18,7 +17,7 @@ path_color = (255, 255, 255)   # White
 bg_color = (200, 200, 200)     # Light gray
 active_cell_color = (255, 0, 0)  # Red
 
-# Maze generation using DFS
+#Depth First Search Maze Generation
 def generate_maze(width, height, draw_speed=0.02):
     maze = np.ones((height, width), dtype=bool)
     stack = []
@@ -45,7 +44,7 @@ def generate_maze(width, height, draw_speed=0.02):
     dfs(1, 1)
     return maze
 
-# Draw maze
+# Render
 def draw_maze(maze, cx, cy, draw_speed):
     screen.fill(bg_color)  # Fill the screen with background color
     for y in range(height):
@@ -58,12 +57,12 @@ def draw_maze(maze, cx, cy, draw_speed):
     pygame.display.flip()
     time.sleep(draw_speed)
 
-# Main function
+#MAIN
 def main():
-    draw_speed = 0.02  # Adjust the speed of drawing
+    draw_speed = 0.02 
     maze = generate_maze(width, height, draw_speed)
-    draw_maze(maze, -1, -1, 0)  # Final draw without highlighting the current cell
-    # Wait for user to close the window
+    draw_maze(maze, -1, -1, 0)  
+    # Close Window to end.
     running = True
     while running:
         for event in pygame.event.get():
