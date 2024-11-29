@@ -8,7 +8,7 @@ import os
 pygame.init()
 
 # Screen dimensions and maze sizing criteria
-width, height = 51, 51
+width, height = 53, 53
 cell_size = 10
 wall_thickness = 2
 screen = pygame.display.set_mode((width * cell_size + (width + 1) * wall_thickness,
