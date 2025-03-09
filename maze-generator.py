@@ -4,30 +4,26 @@ import random
 import time
 import os
 
-# Initialize pygame
-pygame.init()
 
-# Screen dimensions and maze sizing criteria
+pygame.init()
 width, height = 53, 53
 cell_size = 10
 wall_thickness = 2
 screen = pygame.display.set_mode((width * cell_size + (width + 1) * wall_thickness,
                                   height * cell_size + (height + 1) * wall_thickness))
 pygame.display.set_caption("Maze Generation")
-
-# Colors
 wall_color = (0, 0, 0)         # Black
 path_color = (255, 255, 255)   # White
 bg_color = (200, 200, 200)     # Light gray
 active_cell_color = (255, 0, 0)  # Red
 
-# Frame folder for saving images
+#FRAME CACHE FOLDER
 frame_folder = "frames"
 if not os.path.exists(frame_folder):
     os.makedirs(frame_folder)
 frame_count = 0
 
-# Depth first Search -- Generate Maze
+#DFS to gen maze
 def generate_maze(width, height, draw_speed=0.02):
     maze = np.ones((height, width), dtype=bool)
     stack = []
@@ -54,10 +50,10 @@ def generate_maze(width, height, draw_speed=0.02):
     dfs(1, 1)
     return maze
 
-# Draw maze and save each frame
+#RENDER
 def draw_maze(maze, cx, cy, draw_speed):
     global frame_count
-    screen.fill(wall_color)  # Fill the screen with wall color
+    screen.fill(wall_color) #wal color
     for y in range(height):
         for x in range(width):
             if not maze[y, x]:
@@ -66,14 +62,14 @@ def draw_maze(maze, cx, cy, draw_speed):
                                    y * (cell_size + wall_thickness) + wall_thickness,
                                    cell_size, cell_size)
                 pygame.draw.rect(screen, color, rect)
-    # Tracking Current Cell
+    # THIS IS FOR CURRENT CELL BEING DRAWNS
     if cx >= 0 and cy >= 0:
         rect = pygame.Rect(cx * (cell_size + wall_thickness) + wall_thickness,
                            cy * (cell_size + wall_thickness) + wall_thickness,
                            cell_size, cell_size)
         pygame.draw.rect(screen, active_cell_color, rect)
     pygame.display.flip()
-    # Save the current frame
+    #SAVE/LOG CURRENT FRAME TO RENDER AGAIN AFTER
     pygame.image.save(screen, os.path.join(frame_folder, f"frame_{frame_count:04d}.png"))
     frame_count += 1
     time.sleep(draw_speed)
